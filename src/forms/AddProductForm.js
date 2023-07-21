@@ -34,13 +34,13 @@ const AddProductForm = () => {
       title,
       desc,
       price: `${parsedPrice}$`,
-      thumbnail, // Add the thumbnail to the new product object
+      thumbnail, 
     };
     dispatch({ type: "ADD_PRODUCT", payload: newProduct });
     setTitle("");
     setDesc("");
     setPrice("");
-    setThumbnail(defaultThumbnail); // Reset the thumbnail to default
+    setThumbnail(defaultThumbnail); 
     setShowForm(false);
   };
 

@@ -61,7 +61,7 @@ const EditProductForm = ({ product, onSave }) => {
       <p>Price</p>
       <input
         type="text"
-        value={`${parseFloat(price).toFixed(0)}$`} // Display without decimals
+        value={`${parseFloat(price).toFixed(0)}$`} 
         onChange={handlePriceChange}
         placeholder="Price"
       />

@@ -1,0 +1,56 @@
+:root {
+	--trans: all 1.4s ease 0s;
+  --dark: #2f313a;
+  --yellow: #ffdd40;
+  --red: #dd2424;
+}
+
+.product {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: var(--yellow);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+  list-style: none;
+  transform: scale(0.95);
+}
+
+.product:hover {
+  transform: scale(1);
+  transition: var(--trans);
+  filter: drop-shadow(0px 20px 10px #0008);
+}
+
+.product h2 {
+  font-size: 3rem;
+  color: var(--dark);
+}
+
+.product h3 {
+  color: var(--dark);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.product p {
+  color: var(--red);
+  font-size: 2rem;
+}
+
+.product .thumbnail {
+  border-radius: 0.25em;
+  filter: grayscale(1);
+  background: var(--dark);
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.product:hover .thumbnail {
+  filter: none;
+  transition: var(--trans);
+}

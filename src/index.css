@@ -1,0 +1,17 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	display: flex;
+	justify-content: center;
+	font-family: "Lato", Arial, Helvetica, serif;
+	background: linear-gradient(90deg, #131417, var(--dark) 35% 65%, #131417);
+	font-size: 1em;
+}
+
+body *,
+body *:before,
+body *:after {
+	box-sizing: border-box;
+}

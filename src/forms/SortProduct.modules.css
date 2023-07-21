@@ -1,0 +1,5 @@
+label {
+    color: rgb(255, 221, 64);
+    display: flex;
+    flex-direction: column;
+}

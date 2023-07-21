@@ -13,8 +13,15 @@ const EditProductForm = ({ product, onSave }) => {
   const [error, setError] = useState("");
 
   const handleEditProduct = () => {
-    if (!title.trim() || !desc.trim() || parseFloat(price) <= 0.01) {
-      setError("Fields are empty or the price is not typed in correctly.");
+    const parsedPrice = parseFloat(price);
+
+    if (
+      !title.trim() ||
+      !desc.trim() ||
+      isNaN(parsedPrice) ||
+      parsedPrice <= 0.01
+    ) {
+      alert("Please fill in all the fields with values above 0.01.");
       return;
     }
 
@@ -22,7 +29,7 @@ const EditProductForm = ({ product, onSave }) => {
       ...product,
       title,
       desc,
-      price: `${parseFloat(price).toFixed(2)}$`, 
+      price: `${parsedPrice.toFixed(2)}$`, 
     };
     dispatch({ type: "EDIT_PRODUCT", payload: editedProduct });
     onSave();
@@ -30,9 +37,9 @@ const EditProductForm = ({ product, onSave }) => {
 
   const handlePriceChange = (e) => {
     const inputValue = e.target.value.replace(/\$/g, "");
-    const newPrice =
-      inputValue === "" || /^\d+$/.test(inputValue) ? inputValue : price;
+    const newPrice = /^\d*\.?\d{0,2}$/.test(inputValue) ? inputValue : price;
     setPrice(newPrice);
+    setError("");
   };
 
   return (
@@ -54,11 +61,11 @@ const EditProductForm = ({ product, onSave }) => {
       <p>Price</p>
       <input
         type="text"
-        value={price}
+        value={`${parseFloat(price).toFixed(0)}$`} // Display without decimals
         onChange={handlePriceChange}
         placeholder="Price"
       />
-      {error && <p className={classes.error}>{error}</p>} 
+      {error && <p className={classes.error}>{error}</p>}
       <button onClick={handleEditProduct}>Save Changes</button>
     </div>
   );

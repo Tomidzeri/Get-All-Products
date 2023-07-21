@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import defaultThumbnail from "../thumbnail/dummy.png";
 import classes from "./AddForm.module.css";
 
 const AddProductForm = () => {
@@ -9,27 +10,37 @@ const AddProductForm = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
+  const [thumbnail, setThumbnail] = useState(defaultThumbnail);
 
   const handleShowForm = () => {
     setShowForm(true);
   };
 
   const handleAddProduct = () => {
-    if (!title.trim() || !desc.trim() || parseFloat(price) <= 0.01) {
+    const parsedPrice = parseFloat(price);
+
+    if (
+      !title.trim() ||
+      !desc.trim() ||
+      isNaN(parsedPrice) ||
+      parsedPrice <= 0.01
+    ) {
       alert("Please fill in all the fields with values above 0.01.");
       return;
     }
 
     const newProduct = {
-      id: Date.now(), 
+      id: Date.now(),
       title,
       desc,
-      price: `${parseFloat(price).toFixed(2)}$`,
+      price: `${parsedPrice}$`,
+      thumbnail, // Add the thumbnail to the new product object
     };
     dispatch({ type: "ADD_PRODUCT", payload: newProduct });
     setTitle("");
     setDesc("");
     setPrice("");
+    setThumbnail(defaultThumbnail); // Reset the thumbnail to default
     setShowForm(false);
   };
 

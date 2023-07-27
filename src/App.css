@@ -39,6 +39,8 @@ button:active {
 
 .loading {
   color: white;
+  font: bold;
+  font-size: large;
 }
 
 label {

@@ -80,9 +80,10 @@ button {
   margin: 1rem;
 }
 
-p {
+ .no_info,
+ .loading {
   color: white;
   font: bold;
   font-size: larger;
-}
+} 
 

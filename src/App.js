@@ -78,7 +78,7 @@ function ProductListPage({ loading, dataFetched, products, dispatch }) {
   return (
     <section>
       {loading ? (
-        <p>Loading...</p>
+        <p className="loading">Loading...</p>
       ) : (
         <>
           {dataFetched && <AddProductForm />} 

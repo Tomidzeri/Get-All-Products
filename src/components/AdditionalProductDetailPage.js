@@ -18,7 +18,7 @@ const AdditionalProductDetailsPage = () => {
       })
       .then((data) => {
         setProductDetails(data);
-        setErrorOccurred(false); // Reset errorOccurred to false if request is successful
+        setErrorOccurred(false); 
       })
       .catch((error) => {
         setErrorOccurred(true);
@@ -28,7 +28,7 @@ const AdditionalProductDetailsPage = () => {
   if (errorOccurred) {
     return (
       <>
-        <p>There is no additional info for this product.</p>
+        <p className={classes.no_info}>There is no additional info for this product.</p>
         <div className={classes.go_back}>
           <Link to="/">
             <button>Go Back</button>
@@ -39,7 +39,7 @@ const AdditionalProductDetailsPage = () => {
   }
 
   if (!productDetails) {
-    return <p>Loading product details...</p>;
+    return <p className={classes.loading}>Loading product details...</p>;
   }
 
   return (

@@ -1,3 +1,5 @@
+// ProductDetails.js
+
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,11 +14,13 @@ const ProductDetails = () => {
   const [visibleItems, setVisibleItems] = useState(9);
   const [editingProductId, setEditingProductId] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [blurItemId, setBlurItemId] = useState(null);
 
   const dispatch = useDispatch();
 
   const handleEditProduct = (productId) => {
     setEditingProductId(productId);
+    setBlurItemId(productId);
   };
 
   const handleDeleteProduct = (productId) => {
@@ -37,6 +41,7 @@ const ProductDetails = () => {
     if (products.find((product) => product.id === productId)) {
       setSelectedProductId(productId);
       setEditingProductId(null);
+      setBlurItemId(null);
     } else {
       alert("No additional info available for this item.");
     }
@@ -46,16 +51,23 @@ const ProductDetails = () => {
     <>
       <ul className={classes.product_list}>
         {products.slice(0, visibleItems).map((product) => (
-          <li key={product.id}>
-            {selectedProductId === product.id ? (
-              <>
-                <Details
-                  key={product.id}
-                  title={product.title}
-                  thumbnail={product.thumbnail}
-                  desc={product.desc}
-                  price={product.price}
-                />
+           <li
+           key={product.id}
+           className={`${classes.product_item} ${
+             blurItemId === product.id ? classes.blur : ""
+           }`}
+         >
+            <div onClick={() => handleProductClick(product.id)}>
+              <Details
+                key={product.id}
+                title={product.title}
+                thumbnail={product.thumbnail}
+                desc={product.desc}
+                price={product.price}
+              />
+            </div>
+            {selectedProductId === product.id && (
+              <div className={classes.buttons}>
                 {editingProductId === product.id ? (
                   <EditProductForm
                     product={product}
@@ -63,32 +75,20 @@ const ProductDetails = () => {
                   />
                 ) : (
                   <>
-                    <div className={classes.buttons}>
-                      <button onClick={() => handleEditProduct(product.id)}>
-                        Edit
-                      </button>
-                      <button
-                        className={classes.deleteBtn}
-                        onClick={() => handleDeleteProduct(product.id)}
-                      >
-                        Delete
-                      </button>
-                      <Link to={`/product/${product.id}`}>
-                        <button>View Details</button>
-                      </Link>
-                    </div>
+                    <button onClick={() => handleEditProduct(product.id)}>
+                      Edit
+                    </button>
+                    <button
+                      className={classes.deleteBtn}
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
+                      Delete
+                    </button>
+                    <Link to={`/product/${product.id}`}>
+                      <button>View Details</button>
+                    </Link>
                   </>
                 )}
-              </>
-            ) : (
-              <div onClick={() => handleProductClick(product.id)}>
-                <Details
-                  key={product.id}
-                  title={product.title}
-                  thumbnail={product.thumbnail}
-                  desc={product.desc}
-                  price={product.price}
-                />
               </div>
             )}
           </li>
@@ -103,5 +103,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-

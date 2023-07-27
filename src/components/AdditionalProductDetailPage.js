@@ -6,6 +6,7 @@ import classes from "./AdditDet.module.css";
 const AdditionalProductDetailsPage = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState(null);
+  const [errorOccurred, setErrorOccurred] = useState(false);
 
   useEffect(() => {
     fetch(`https://dummyjson.com/products/${id}`)
@@ -17,15 +18,30 @@ const AdditionalProductDetailsPage = () => {
       })
       .then((data) => {
         setProductDetails(data);
+        setErrorOccurred(false); // Reset errorOccurred to false if request is successful
       })
       .catch((error) => {
-        alert("Error fetching product details.");
+        setErrorOccurred(true);
       });
   }, [id]);
+
+  if (errorOccurred) {
+    return (
+      <>
+        <p>There is no additional info for this product.</p>
+        <div className={classes.go_back}>
+          <Link to="/">
+            <button>Go Back</button>
+          </Link>
+        </div>
+      </>
+    );
+  }
 
   if (!productDetails) {
     return <p>Loading product details...</p>;
   }
+
   return (
     <>
       <div className={classes.product}>

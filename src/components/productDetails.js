@@ -1,5 +1,3 @@
-// ProductDetails.js
-
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,6 +13,7 @@ const ProductDetails = () => {
   const [editingProductId, setEditingProductId] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [blurItemId, setBlurItemId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
 
   const dispatch = useDispatch();
 
@@ -47,16 +46,36 @@ const ProductDetails = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Filter products based on the search term
+  const filteredProducts = products.filter(
+    (product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.desc.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
+      <div>
+        <label htmlFor="search">Search: </label>
+        <input
+          type="text"
+          id="search"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
       <ul className={classes.product_list}>
-        {products.slice(0, visibleItems).map((product) => (
-           <li
-           key={product.id}
-           className={`${classes.product_item} ${
-             blurItemId === product.id ? classes.blur : ""
-           }`}
-         >
+        {filteredProducts.slice(0, visibleItems).map((product) => (
+          <li
+            key={product.id}
+            className={`${classes.product_item} ${
+              blurItemId === product.id ? classes.blur : ""
+            }`}
+          >
             <div onClick={() => handleProductClick(product.id)}>
               <Details
                 key={product.id}
@@ -95,7 +114,7 @@ const ProductDetails = () => {
         ))}
       </ul>
       {visibleItems > 9 && <button onClick={handleShowLess}>Show Less</button>}
-      {visibleItems < products.length && (
+      {visibleItems < filteredProducts.length && (
         <button onClick={handleExtendList}>Show More</button>
       )}
     </>

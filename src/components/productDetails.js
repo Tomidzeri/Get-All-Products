@@ -12,14 +12,12 @@ const ProductDetails = () => {
   const [visibleItems, setVisibleItems] = useState(9);
   const [editingProductId, setEditingProductId] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
-  const [blurItemId, setBlurItemId] = useState(null);
   const [searchTerm, setSearchTerm] = useState(""); // New state for search term
 
   const dispatch = useDispatch();
 
   const handleEditProduct = (productId) => {
     setEditingProductId(productId);
-    setBlurItemId(productId);
   };
 
   const handleDeleteProduct = (productId) => {
@@ -40,7 +38,6 @@ const ProductDetails = () => {
     if (products.find((product) => product.id === productId)) {
       setSelectedProductId(productId);
       setEditingProductId(null);
-      setBlurItemId(null);
     } else {
       alert("No additional info available for this item.");
     }
@@ -72,9 +69,7 @@ const ProductDetails = () => {
         {filteredProducts.slice(0, visibleItems).map((product) => (
           <li
             key={product.id}
-            className={`${classes.product_item} ${
-              blurItemId === product.id ? classes.blur : ""
-            }`}
+            className={classes.product_item}
           >
             <div onClick={() => handleProductClick(product.id)}>
               <Details

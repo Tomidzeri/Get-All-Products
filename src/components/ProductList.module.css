@@ -22,11 +22,6 @@
   position: relative;
 } 
 
-.blur {
-  filter: blur(5px);
-  pointer-events: none;
-}
-
 .buttons {
   display: flex;
   flex-direction: column;

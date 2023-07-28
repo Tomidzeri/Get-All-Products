@@ -1,4 +1,5 @@
 :root {
+  --trans: all 1.4s ease 0s;
   --dark: #2f313a;
   --yellow: #ffdd40;
   --red: #dd2424;
@@ -21,7 +22,35 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  cursor: pointer;
 } 
+
+.tooltip {
+  font-size: small;
+  visibility: hidden;
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  padding: 3px 3px;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 94%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.product_item:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.product_item:hover .buttons {
+  display: flex;
+}
 
 .buttons {
   display: flex;
@@ -39,6 +68,8 @@
   left: 0;
   bottom: 0;
   z-index: 1;
+  display: none;
+  
 }
 
 .buttons button {
@@ -59,3 +90,6 @@
   font-weight: bold;
   border: 3px solid white;
 }
+
+
+

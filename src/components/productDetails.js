@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const [visibleItems, setVisibleItems] = useState(9);
   const [editingProductId, setEditingProductId] = useState(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   const dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ const ProductDetails = () => {
     setSearchTerm(event.target.value);
   };
 
-  // Filter products based on the search term
+  
   const filteredProducts = products.filter(
     (product) =>
       product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -67,11 +67,14 @@ const ProductDetails = () => {
       </div>
       <ul className={classes.product_list}>
         {filteredProducts.slice(0, visibleItems).map((product) => (
-          <li
-            key={product.id}
-            className={classes.product_item}
+          <li key={product.id} className={classes.product_item}>
+          <div
+            onClick={() => handleProductClick(product.id)}
+            className={classes.product_container}
           >
-            <div onClick={() => handleProductClick(product.id)}>
+            <div className={classes.tooltip}>
+              Click an Item for more info.
+            </div>
               <Details
                 key={product.id}
                 title={product.title}
